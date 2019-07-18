@@ -1,0 +1,3 @@
+bind main <Ctrl-r> !git rebase -i %(commit)^
+bind main <Ctrl-h> !git checkout %(commit)
+bind diff <Ctrl-r> !git rebase -i %(commit)^

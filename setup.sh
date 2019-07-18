@@ -6,9 +6,9 @@
 
 ########## Variables
 
-dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"                    # dotfiles directory
-olddir=~/dotfiles_old             # old dotfiles backup directory
-files=".xmonad .xmobarrc .xprofile .Xresources"    # list of files/folders to symlink in homedir
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # dotfiles directory
+olddir=~/dotfiles_old                                   # old dotfiles backup directory
+files=".xmonad .xmobarrc .xprofile .Xresources .tigrc"  # list of files/folders to symlink in homedir
 
 ##########
 
