@@ -10,7 +10,7 @@ xterm.background:black
 
 urxvt.foreground:grey
 urxvt.background:black
-urxvt.font:xft:Bitstream Vera Sans Mono:pixelsize=12
+urxvt.font:xft:Bitstream Vera Sans Mono:pixelsize=14
 urxvt.letterSpace:-1
 URxvt.borderLess:false
 URxvt.depth:32
@@ -62,3 +62,4 @@ URxvt.shading:20
 *.color15:      #f9f8f5
 
 xscreensaver.newLoginCommand: dm-tool switch-to-greeter
+Xcursor.size: 30

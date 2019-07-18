@@ -8,7 +8,7 @@
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # dotfiles directory
 olddir=~/dotfiles_old                                   # old dotfiles backup directory
-files=".xmonad .xmobarrc .xprofile .Xresources .tigrc"  # list of files/folders to symlink in homedir
+files=".bash_profile .bashrc .profile .tigrc .Xresources .config .local"  # list of files/folders to symlink in homedir
 
 ##########
 
@@ -28,4 +28,9 @@ for file in $files; do
     mv ~/$file $olddir
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/$file
+done
+
+echo "link .xprofile and .zprofile"
+for file in ".xprofile .zprofile"; do
+    ln -s $dir/.profile $file
 done
