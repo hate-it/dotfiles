@@ -1,0 +1,64 @@
+! Fonts {{{
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.hintstyle: hintfull
+! }}}
+
+xterm.foreground:green
+xterm.background:black
+
+urxvt.foreground:grey
+urxvt.background:black
+urxvt.font:xft:Bitstream Vera Sans Mono:pixelsize=12
+urxvt.letterSpace:-1
+URxvt.borderLess:false
+URxvt.depth:32
+URxvt.scrollBar_right:true
+URxvt.font:xft:Terminus:size=9
+URxvt.cursorBlink:true
+URxvt.cursorUnderline:true
+URxvt.scrollColor:#111111
+URxvt.buffered:true
+URxvt.saveLines:10240
+URxvt.transparent:true
+URxvt.shading:20
+
+! special
+*.foreground:   #fffff2
+*.background:   #000000
+*.cursorColor:  #f8f8f2
+
+! black
+*.color0:       #272822
+*.color8:       #75715e
+
+! red
+*.color1:       #f92672
+*.color9:       #f92672
+
+! green
+*.color2:       #a6e22e
+*.color10:      #a6e22e
+
+! yellow
+*.color3:       #f4bf75
+*.color11:      #f4bf75
+
+! blue
+*.color4:       #66d9ef
+*.color12:      #66d9ef
+
+! magenta
+*.color5:       #ae81ff
+*.color13:      #ae81ff
+
+! cyan
+*.color6:       #a1efe4
+*.color14:      #a1efe4
+
+! white
+*.color7:       #fffff2
+*.color15:      #f9f8f5
+
+xscreensaver.newLoginCommand: dm-tool switch-to-greeter
