@@ -4,4 +4,6 @@ export EDITOR="vim"
 export ANSIBLE_VAULT_PASSWORD_FILE=~/ansible/ansible-vault-key.txt
 
 # Start graphical server if i3 not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x sway >/dev/null && exec sway
+
+export PATH="$HOME/.cargo/bin:$PATH"

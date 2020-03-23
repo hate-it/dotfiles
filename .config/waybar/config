@@ -1,0 +1,92 @@
+// vim:ft=json
+
+{
+  "layer": "bottom",
+  "position": "top",
+
+  "modules-left": [
+    "sway/workspaces",
+    "custom/right-arrow-dark"
+  ],
+  "modules-center": [
+    "custom/left-arrow-dark",
+    "clock#1",
+    "clock#2",
+    "custom/right-arrow-dark"
+  ],
+  "modules-right": [
+    "custom/left-arrow-dark",
+    "pulseaudio",
+    "memory",
+    "cpu",
+    "battery",
+    "tray"
+  ],
+
+  "custom/left-arrow-dark": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/left-arrow-light": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right-arrow-dark": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right-arrow-light": {
+    "format": "",
+    "tooltip": false
+  },
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "format": "{name}"
+  },
+  "clock#1": {
+    "format": "{: %a %d %b}",
+    "tooltip": false
+  },
+  "clock#2": {
+    "format": "{: %H:%M}",
+    "tooltip": false
+  },
+
+  "pulseaudio": {
+    // "format": "{icon} {volume}%",
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-muted": "MUTE ﱝ",
+    "format-icons": {
+      "headphones": "",
+      "default": ["", "", ""]
+    },
+    "scroll-step": 5,
+    "on-click": "pamixer -t",
+    "on-click-right": "pavucontrol"
+  },
+  "memory": {
+    "interval": 5,
+    "format": "{}% "
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "{usage:2}% "
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "tray": {
+    "icon-size": 20
+  }
+}

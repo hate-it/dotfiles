@@ -1,0 +1,54 @@
+[options]
+scrollback_lines = 10000
+#font = Deja Vu Sans Mono 16
+font = Monospace 10
+
+[colors]
+# Base16 Solarized Dark
+# Author: Ethan Schoonover (modified by aramisgithub)
+
+foreground          = #fffff2
+foreground_bold     = #ffffff
+cursor              = #f8f8f2
+cursor_foreground   = #f8f8f8
+background          = rgba(0, 0, 0, 0.8)
+
+# 16 color space
+
+# Black, Gray, Silver, White
+color0  = #272822
+color8  = #75715e
+color7  = #fffff2
+color15 = #f9f8f5
+
+# Red
+color1  = #f92672
+color9  = #f92672
+
+# Green
+color2  = #a6e22e
+color10 = #a6e22e
+
+# Yellow
+color3  = #f4bf75
+color11 = #f4bf75
+
+# Blue
+color4  = #66d9ef
+color12 = #66d9ef
+
+# Purple
+color5  = #ae81ff
+color13 = #ae81ff
+
+# Teal
+color6  = #a1efe4
+color14 = #a1efe4
+
+# Extra colors
+color16 = #cb4b16
+color17 = #d33682
+color18 = #073642
+color19 = #586e75
+color20 = #839496
+color21 = #eee8d5
