@@ -11,7 +11,7 @@ Plug  'itchyny/lightline.vim'
 Plug 'dense-analysis/ale' " Linter
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'flazz/vim-colorschemes'
 Plug 'cespare/vim-toml'
@@ -212,8 +212,21 @@ set noshowmode
 
 let mapleader = ","
 
-noremap <C-o> :NERDTreeToggle<CR>
+" noremap <C-o> :NERDTreeToggle<CR>
 
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :botright vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+nnoremap <leader>cs :botright 30vsplit ~/.vim/cheatsheet.md<cr>
+
+inoremap jj <Esc>l
+
+" kill bad habits
+
+nnoremap <Left> <nop>
+nnoremap <Down> <nop>
+nnoremap <Up> <nop>
+nnoremap <Right> <nop>
+
+
 " --- mappings --- }}
