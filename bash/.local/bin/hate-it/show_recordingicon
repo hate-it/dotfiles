@@ -1,0 +1,4 @@
+#!/bin/bash
+ICON=""
+[[ -f /tmp/recordingicon ]] && ICON=$(cat /tmp/recordingicon)
+echo ${ICON}

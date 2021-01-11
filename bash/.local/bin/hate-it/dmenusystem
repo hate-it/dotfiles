@@ -1,0 +1,26 @@
+#!/bin/sh
+
+shutdown() { \
+	/usr/bin/shutdown -P 0;
+}
+
+reboot() { \
+	/usr/bin/reboot;
+}
+
+asksystemevent() { \
+	choice=$(printf "reboot\\nshutdown" | dmenu -i -p "Select:")
+	case "$choice" in
+		shutdown) shutdown;;
+		reboot) reboot;;
+	esac
+	}
+
+
+
+case "$1" in
+	shutdown) shutdown;;
+	reboot) reboot;;
+	*) asksystemevent;;
+esac
+
