@@ -1,10 +1,13 @@
 #!/bin/bash
 
+SINK=alsa_output.usb-Creative_Technology_Ltd_Sound_Blaster_Play__2_000000001892-00.analog-stereo
+SOURCE=alsa_input.usb-Creative_Technology_Ltd_Sound_Blaster_Play__2_000000001892-00.analog-stereo
+
 # setup null-sink
 pacmd load-module module-null-sink sink_name=recording sink_properties=device.description=recording
 
 # setup combined sink
-pacmd load-module module-combine-sink sink_name=combined sink_properties=device.description=combined slaves=recording,alsa_output.pci-0000_0a_00.4.analog-stereo
+pacmd load-module module-combine-sink sink_name=combined sink_properties=device.description=combined slaves=recording,${SINK}
 
 # attach mic to recording
-pacmd load-module module-loopback source=alsa_input.pci-0000_0a_00.4.analog-stereo sink=recording latency_msec=1
+pacmd load-module module-loopback source=${SOURCE} sink=recording latency_msec=1

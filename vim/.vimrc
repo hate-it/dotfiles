@@ -1,13 +1,13 @@
-" za -> fold comments
-" mapleader = ,
-" ev -> open .vimrc
-" sv -> source .vimrc
+  " za -> fold comments
+  " mapleader = ,
+  " ev -> open .vimrc
+  " sv -> source .vimrc
 
 " --- Plugins --- {{{
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible' " defaults
-Plug  'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 Plug 'dense-analysis/ale' " Linter
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -18,6 +18,14 @@ Plug 'cespare/vim-toml'
 Plug 'junegunn/fzf.vim'
 
 Plug 'dylanaraps/wal'
+Plug 'jremmen/vim-ripgrep'
+Plug 'kien/ctrlp.vim'
+
+" plantuml previewer and dependencies
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'aklt/plantuml-syntax'
+" plantuml previewer end
 
 call plug#end()
 " --- Plugins --- }}}
@@ -40,9 +48,25 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set autoindent
+set path+=**
+set wildmenu
+set splitbelow splitright
 
-" Color Scheme
-colorscheme wal
+" lightline status integration
+
+let g:lightline = {
+      \ 'colorscheme': 'ayu_dark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " --- Vim config --- }}}
 
@@ -67,40 +91,40 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+" Recently vim can merge signcolumn and number column into one
+set signcolumn=number
 else
-  set signcolumn=yes
+set signcolumn=yes
 endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+let col = col('.') - 1
+return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
 if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -118,11 +142,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+if (index(['vim','help'], &filetype) >= 0)
+  execute 'h '.expand('<cword>')
+else
+  call CocAction('doHover')
+endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
@@ -136,11 +160,11 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+autocmd!
+" Setup formatexpr specified filetype(s).
+autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+" Update signature help on jump placeholder.
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Applying codeAction to the selected region.
@@ -181,7 +205,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -201,6 +225,8 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+
+
 " --- coc.vim --- }}}
 
 " --- Status Bar --- {{{
@@ -214,8 +240,8 @@ let mapleader = ","
 
 " noremap <C-o> :NERDTreeToggle<CR>
 
-nnoremap <leader>ev :botright vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ev :tabedit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>:syntax on<cr>
 
 nnoremap <leader>cs :botright 30vsplit ~/.vim/cheatsheet.md<cr>
 
@@ -228,5 +254,91 @@ nnoremap <Down> <nop>
 nnoremap <Up> <nop>
 nnoremap <Right> <nop>
 
+" split navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
-" --- mappings --- }}
+" Make adjusing split sizes a bit more friendly
+" nnoremap <silent> <C-Left> :vertical resize +3<CR>
+" nnoremap <silent> <C-Right> :vertical resize -3<CR>
+" nnoremap <silent> <C-Up> :resize +3<CR>
+" nnoremap <silent> <C-Down> :resize -3<CR>
+
+" Change 2 split windows from vert to horiz or horiz to vert
+map <Leader>th <C-w>t<C-w>H
+map <Leader>tk <C-w>t<C-w>K
+
+" --- mappings --- }}}
+
+" --- vim-ripgrep --- {{{
+
+let g:rg_binary = 'rg'
+let g:rg_command = g:rg_binary . ' --vimgrep --type-not sql --smart-case'
+
+"  --- vim-ripgrep --- }}}
+
+" --- fzf.vim --- {{{
+
+" --- fzf.vim --- }}}
+
+" --- session management {{{
+set ssop-=options
+set ssop-=folds
+
+function! MakeSession(overwrite)
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  if (filewritable(b:sessiondir) != 2)
+    exe 'silent !mkdir -p ' b:sessiondir
+    redraw!
+  endif
+  let b:filename = b:sessiondir . '/session.vim'
+  if a:overwrite == 0 && !empty(glob(b:filename))
+    return
+  endif
+  exe "mksession! " . b:filename
+endfunction
+
+function! LoadSession()
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  let b:sessionfile = b:sessiondir . "/session.vim"
+  if (filereadable(b:sessionfile))
+    exe 'source ' b:sessionfile
+  else
+    echo "No session loaded."
+  endif
+endfunction
+
+" Adding automatons for when entering or leaving Vim
+if(argc() == 0)
+  au VimEnter * nested :call LoadSession()
+  au VimLeave * :call MakeSession(1)
+else
+  au VimLeave * :call MakeSession(0)
+endif
+
+" --- session management --- }}}
+
+" --- term settings --- {{{
+augroup custom_term
+    autocmd!
+    autocmd TerminalOpen * setlocal bufhidden=hide
+augroup END
+" --- term settings --- }}}
+
+" --- ctrlp.vim --- {{{
+
+  if executable('rg')
+    let g:ctrlp_user_command = 'rg --files %s'
+    let g:ctrlp_use_caching = 0
+    let g:ctrlp_working_path_mode = 'ra'
+    let g:ctrlp_switch_buffer = 'et'
+  endif
+  
+  nnoremap <c-p> :CtrlP :pwd<CR>
+  nnoremap <c-P> :CtrlPBuffer<CR>
+
+" --- ctrlp.vim --- }}}
+" Color Scheme
+colorscheme wal

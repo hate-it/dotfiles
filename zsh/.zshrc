@@ -74,17 +74,18 @@ plugins=(
     asdf
     archlinux
     autojump
-    aws
+    #aws
     command-not-found
     docker
     docker-compose
     git-auto-fetch
     git-extras
     fzf
+    keychain
     kubectl
     kube-ps1
     last-working-dir
-    ssh-agent
+    #ssh-agent
     sudo
     systemd
     tig
@@ -92,6 +93,8 @@ plugins=(
     vscode
     zsh_reload
 )
+
+zstyle :omz:plugins:keychain agents gpg,ssh
 
 source $ZSH/oh-my-zsh.sh
 
